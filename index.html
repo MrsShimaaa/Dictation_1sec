@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dictation Website</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                font-size: 20px;
+            }
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            .form-group {
+                margin-bottom: 20px;
+            }
+            label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+            input,
+            textarea {
+                width: 100%;
+                padding: 10px;
+                box-sizing: border-box;
+                resize: none;
+                font-size: 20px;
+            }
+            #passage {
+                margin-bottom: 20px;
+                background-color: lightgray;
+            }
+            ul li {
+                padding: 5px;
+            }
+            button {
+                border: none;
+                padding: 10px;
+                background-color: lightgreen;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Dictation Website</h1>
+            <form
+                id="dictation-form"
+                action="https://formspree.io/f/xbjvyoeg"
+                method="POST"
+            >
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required />
+                </div>
+                <div class="form-group">
+                    <label>Timer:</label>
+                    <span id="timer">60</span> seconds remaining
+                </div>
+                <div class="form-group">
+                    <label>Vocabulary:</label>
+                    <div id="passage">
+                        <ul>
+                            <li>دين</li>
+                            <li>تاجر</li>
+                            <li>تعيس</li>
+                            <li>بتعاسة</li>
+                            <li>ممتلئ قليلا</li>
+                            <li>معتقدات</li>
+                            <li>يستحق</li>
+                            <li>يسلى</li>
+                            <li>التسلية</li>
+                            <li>مقتطف</li>
+                            <li>بنس</li>
+                            <li>روائى</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="dictation">Your Dictation:</label>
+                    <textarea
+                        id="dictation"
+                        name="dictation"
+                        required
+                    ></textarea>
+                </div>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+
+        <script>
+            let timeRemaining = 60;
+            const timerElement = document.querySelector("#timer");
+            const formElement = document.querySelector("#dictation-form");
+
+            const countdown = setInterval(() => {
+                timeRemaining--;
+                timerElement.textContent = timeRemaining;
+
+                if (timeRemaining === 0) {
+                    clearInterval(countdown);
+                    formElement.submit();
+                }
+            }, 1000);
+
+            formElement.addEventListener("submit", (event) => {
+                event.preventDefault();
+                clearInterval(countdown);
+                formElement.submit();
+            });
+        </script>
+    </body>
+</html>
